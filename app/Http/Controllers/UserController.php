@@ -18,14 +18,14 @@ class UserController extends Controller
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:6|confirmed', // password_confirmation field required
         ]);
-
+        // return $request;
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => $request->role ?? "user",
         ]);
-
+        
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
