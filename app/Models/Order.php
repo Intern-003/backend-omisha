@@ -15,6 +15,7 @@ class Order extends Model
         'address',
         'pincode',
         'bill_amount',
+        'status'
     ];
 
     // Relationships
