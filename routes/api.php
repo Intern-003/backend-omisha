@@ -7,6 +7,8 @@ use App\Http\Controllers\Api\Admin\EbookImageController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Api\User\CartController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\Api\AddressController;
+  use App\Http\Controllers\WishlistController;
 
 // Route::post('/register', function (Request $r){
 //     return $r;
@@ -41,12 +43,26 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [UserController::class, 'logout']);//
     Route::get('/profile', [UserController::class, 'profile']); // optional
     Route::post('/checkout',[CheckoutController::class,'checkout']);
+
+Route::post('/checkout/validate', [CheckoutController::class, 'validateCheckout']);
+Route::post('/checkout/summary', [CheckoutController::class, 'summary']);
+Route::post('/checkout/place-order', [CheckoutController::class, 'placeOrder']);
     Route::get('/order-history/{id}',[CheckoutController::class,'orderhistory']);//
     Route::get('/cart', [CartController::class, 'viewCart']);//
     Route::post('/cart/add', [CartController::class, 'addItem']);//
     Route::put('/cart/item/{id}', [CartController::class, 'updateItem']);//
     Route::delete('/cart/item/{id}', [CartController::class, 'removeItem']);//
+ Route::get('/addresses', [AddressController::class, 'index']);
+  Route::post('/addresses', [AddressController::class, 'store']);
 
+  Route::get('/addresses/{id}', [AddressController::class, 'show']);
+  Route::post('/addresses/{id}', [AddressController::class, 'update']); // your requirement
+  Route::delete('/addresses/{id}', [AddressController::class, 'destroy']);
+
+
+Route::get('/wishlist', [WishlistController::class, 'index']);
+Route::post('/wishlist', [WishlistController::class, 'store']);
+Route::delete('/wishlist/{productId}', [WishlistController::class, 'destroy']);
 });
 
 Route::prefix('admin')
